@@ -1,0 +1,508 @@
+ARRAYS
+
+1)Count frequency of each element in an array
+
+package practice_java;
+
+import java.util.Scanner;
+
+public class problems{
+	
+	static int max(int arr[],int n) {    //func to return max element
+		int maxi=arr[0];
+		for(int i=0;i<n;i++) {
+			if (arr[i]>maxi) {
+				maxi=arr[i];
+			}
+		}
+		return maxi;
+	}
+	public static void main(String args[]) {     //main func
+		
+		Scanner scan=new Scanner(System.in);
+		int n=scan.nextInt();
+		int [] arr=new int[n];
+		for(int i=0;i<n;i++) {
+			arr[i]=scan.nextInt();
+		}
+		
+		int m=max(arr,n);
+		
+		int [] fre=new int[m+1];     //array declaration
+		for(int i=0;i<m+1;i++) {     //intialize all elements to 0 in frequency array
+			fre[i]=0;
+		}
+		for(int i=0;i<n;i++) {      //traverse i/p array and increment elements of fre array
+			fre[arr[i]]++;
+		}
+		for(int i=0;i<m+1;i++) {
+			if (fre[i]!=0) {
+				System.out.println(i + ":" + fre[i]);
+			}
+		}
+	}
+}
+
+2)Rotate Array by K Positions
+Input:
+Array: 5 10 15 20 25 30
+K = 3
+Output:
+20 25 30 5 10 15
+
+(K > N case)
+Input:
+Array: 1 2 3
+K = 5
+Logic: K = 5 % 3 = 2
+Output:
+3 1 2
+
+package practice_java;
+
+import java.util.Scanner;
+
+public class problems{
+
+	public static void main(String args[]) {
+		
+		Scanner scan=new Scanner(System.in);
+		int n=scan.nextInt();
+		int [] arr=new int[n];
+		for(int i=0;i<n;i++) {
+			arr[i]=scan.nextInt();
+		}
+		
+	    int k=scan.nextInt();
+	    if(n==0) {
+	    	System.out.print("0");
+	    }
+	    k=k%n;    //when k greater than n
+	    for(int i=k;i<n;i++) {
+	    	System.out.print(arr[i]);
+	    }
+	    for(int i=0;i<k;i++) {
+	    	System.out.print(arr[i]);
+	    }
+	}
+}
+
+i)left rotation
+Input:  [1 2 3 4 5], k = 2
+Output: [3 4 5 1 2]
+
+for (int i = k; i < n; i++) {
+   System.out.print(arr[i] + " ");
+}
+for (int i = 0; i < k; i++) {
+   System.out.print(arr[i] + " ");
+}
+ 
+
+ii)right rotation
+Input:  [1 2 3 4 5], k = 2
+Output: [3 4 5 1 2]
+
+for (int i = n - k; i < n; i++) {
+    System.out.print(arr[i] + " ");
+}
+for (int i = 0; i < n - k; i++) {
+    System.out.print(arr[i] + " ");
+        }
+
+3)move zeros to end
+input: 4
+       0 5 0 2
+output: 5 2 0 0
+
+package practice_java;
+
+import java.util.Scanner;
+
+public class problems{
+
+	public static void main(String args[]) {
+		
+		Scanner scan=new Scanner(System.in);
+		int n=scan.nextInt();
+		int [] arr=new int[n];
+		for(int i=0;i<n;i++) {
+			arr[i]=scan.nextInt();
+		}
+		int j=0;
+		for(int i=0;i<n;i++) {
+			if(arr[i]!=0) {
+				arr[j]=arr[i];
+				j++;
+			}
+		}
+		
+		while(j<n) {
+			arr[j]=0;
+			j++;
+		}
+		
+		for(int i=0;i<n;i++) {
+			System.out.print(arr[i] + " ");
+		}
+	}
+}
+
+4)remove duplicates in array
+
+import java.util.Scanner;
+
+public class problems{
+
+	public static void main(String args[]) {
+		
+		Scanner scan=new Scanner(System.in);
+		int n=scan.nextInt();
+		if(n==0){
+		    System.out.println("no elements");
+		}
+		int [] arr=new int[n];
+		for(int i=0;i<n;i++) {
+			arr[i]=scan.nextInt();
+		}
+		for(int i=0;i<n-1;i++) {           //array sorting
+			for(int j=0;j<n-i-1;j++) {
+				if(arr[j]>arr[j+1]) {
+					int t=arr[j];
+					arr[j]=arr[j+1];
+					arr[j+1]=t;		
+				}
+			}
+		}
+		
+		for(int i=0;i<n;i++) {
+			System.out.print(arr[i] + " ");
+		}
+		
+	   int j=0;
+		for(int i=1;i<n;i++) {
+			if(arr[i]!=arr[j]) {
+				j++;
+				arr[j]=arr[i];
+			}
+		}
+		int newsize=j+1;
+		for(int i=0;i<newsize;i++) {
+			System.out.print(arr[i] + " ");
+		}
+		
+	}
+}
+
+5)Find two numbers in an array whose sum = target.
+
+Example
+Array: [2, 7, 11, 15]
+Target = 9
+Output: Pair: (2, 7)
+
+import java.util.Scanner;
+public class Main{
+    public static void main(String args[]){
+        Scanner scan=new Scanner(System.in);
+        int n=scan.nextInt();
+        int [] arr=new int[n];
+        for(int i=0;i<n;i++){
+            arr[i]=scan.nextInt();
+        }
+        int target=scan.nextInt();
+        
+        boolean found=false;
+        for(int i=0;i<n;i++){
+            for(int j=i+1;j<n;j++){
+                if(arr[i]+arr[j]==target){
+                    System.out.println("(" + arr[i] + "," + arr[j] + ")");
+                    found=true;
+                }
+    
+            }
+        }
+        
+        if(!found){
+            System.out.println("no pair found");
+        }
+        scan.close();
+     }
+}
+
+6)merge two sorted arrays
+input
+4
+1 3 5 7
+4
+2 4 6 8
+Output
+1 2 3 4 5 6 7 8
+
+import java.util.Scanner;
+public class Main{
+    public static void main(String args[]){
+        Scanner scan=new Scanner(System.in);
+        int n=scan.nextInt();
+        int [] arr=new int[n];
+        for(int i=0;i<n;i++){
+            arr[i]=scan.nextInt();
+        }
+        
+        int m=scan.nextInt();
+        int [] arr1=new int[m];
+        for(int i=0;i<m;i++){
+            arr1[i]=scan.nextInt();
+        }
+        
+        int i=0,j=0;
+        while(i<n && j<m){
+            if(arr[i]<arr1[j]){
+                System.out.print(arr[i] + " ");
+                i++;
+            }
+            else{
+                System.out.print(arr1[j] + " ");
+                j++;
+            }
+        }
+        
+        while(i<n){
+            System.out.print(arr[i] + " ");
+            i++;
+        }
+        while(j<m){
+            System.out.print(arr1[j] + " ");
+            j++;
+        }
+        
+    }
+}
+
+7))intersection of two arrays
+Input
+5
+1 2 2 3 4
+4
+2 2 4 6
+
+4
+1 2 2 3
+3
+2 3 4
+
+import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+
+        Scanner scan = new Scanner(System.in);
+
+        int n = scan.nextInt();
+        int[] arr1 = new int[n];
+
+        for (int i = 0; i < n; i++) {
+            arr1[i] = scan.nextInt();
+        }
+
+        int m = scan.nextInt();
+        int[] arr2 = new int[m];
+
+        for (int i = 0; i < m; i++) {
+            arr2[i] = scan.nextInt();
+        }
+
+
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < m; j++) {
+                if (arr1[i] == arr2[j]) {
+                    System.out.print(arr1[i] + " ");
+                    arr2[j]=Integer.MIN_VALUE;  // mark as used (We assume this value does not exist in original array.It acts like a “used” marker)
+                    break; 
+                }
+            }
+        }
+
+        scan.close();
+    }
+}
+
+8)Given an array of integers, find the first element that repeats. If no element repeats, print -1.
+Input Format:
+First line contains integer N.
+Second line contains N space-separated integers.
+Output Format: Print the first repeating element.
+
+import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+
+        Scanner scan = new Scanner(System.in);
+        int n = scan.nextInt();
+        int[] arr1 = new int[n];
+        for (int i = 0; i < n; i++) {
+            arr1[i] = scan.nextInt();
+        }
+
+        boolean found=false;
+        for (int i = 0; i < n; i++) {
+            for (int j =i+1;j<n;j++) {
+                if (arr1[i] == arr1[j]) {
+                    System.out.print(arr1[i]);
+                    found=true;
+                }
+            }
+        }
+        if(!found){
+            System.out.print("no such element");
+        }
+
+        scan.close();
+    }
+}
+
+9)sorting elements of an array by frequency
+i/p
+6
+4 5 6 5 4 3
+o/p
+4 4 5 5 3 6
+
+import java.util.Scanner;
+
+public class Main{
+	
+	static int max(int arr[],int n) {    //func to return max element
+		int maxi=arr[0];
+		for(int i=0;i<n;i++) {
+			if (arr[i]>maxi) {
+				maxi=arr[i];
+			}
+		}
+		return maxi;
+	}
+	public static void main(String args[]) {     //main func
+		
+		Scanner scan=new Scanner(System.in);
+		int n=scan.nextInt();
+		int [] arr=new int[n];
+		for(int i=0;i<n;i++) {
+			arr[i]=scan.nextInt();
+		}
+		
+		int m=max(arr,n);
+		
+		int [] fre=new int[m+1];     //array declaration
+		for(int i=0;i<m+1;i++) {     //intialize all elements to 0 in frequency array
+			fre[i]=0;
+		}
+		for(int i=0;i<n;i++) {      //traverse i/p array and increment elements of fre array
+			fre[arr[i]]++;
+		}
+		
+		for(int k=n;k>=1;k--){          //sort by frequency(high->low)
+		    for(int l=0;l<m+1;l++){
+		        if(fre[l]==k){
+		            for(int a=0;a<k;a++){
+		                System.out.print(l +" ");
+		            }
+		        }
+		    }
+		}
+		
+	}
+}
+
+10)find equilibrium index of an array
+i/p
+arr = [1, 3, 5, 2, 2]
+o/p
+index = 2
+
+Left side  → 1 + 3 = 4  
+Right side → 2 + 2 = 4 
+
+import java.util.Scanner;
+
+public class Main{
+	
+	public static void main(String args[]) {     
+		
+		Scanner scan=new Scanner(System.in);
+		int n=scan.nextInt();
+		int [] arr=new int[n];
+		for(int i=0;i<n;i++) {
+			arr[i]=scan.nextInt();
+		}
+		
+		int total=0;
+		for(int i=0;i<n;i++){  //find total sum
+		    total+=arr[i];
+		}
+		
+		int leftsum=0;
+		for(int i=0;i<n;i++){
+		    total-=arr[i];      //total act as rightsum
+		    if(leftsum==total){
+		        System.out.print(i);
+		    }
+		    leftsum+=arr[i];
+		}
+		
+	}
+}
+
+11)Check if Array is a subset of another array or not
+i/p
+5
+1 2 3 4 5
+2
+2 4
+o/p
+subset
+
+import java.util.Scanner;
+
+public class Main{
+	
+	public static void main(String args[]) {     
+		
+		Scanner scan=new Scanner(System.in);
+		int n=scan.nextInt();
+		int [] arr1=new int[n];
+		for(int i=0;i<n;i++) {
+			arr1[i]=scan.nextInt();
+		}
+		
+		int m=scan.nextInt();
+		int [] arr2=new int[m];
+		for(int i=0;i<m;i++) {
+			arr2[i]=scan.nextInt();
+		}
+		
+		boolean issubset=true;
+		boolean found=false;
+		
+		for(int i=0;i<m;i++){
+		    for(int j=0;j<n;j++){
+		        if(arr2[i]==arr1[j]){
+		            found=true;
+		            break;
+		        }
+		    }
+		    
+		    if(!found){
+		    issubset=false;
+		    break;
+		    }
+		}
+		
+		if(issubset){
+		    System.out.print("subset");
+		}
+		else{
+		    System.out.print("not subset");
+		}
+	}
+}
